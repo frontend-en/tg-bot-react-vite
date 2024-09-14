@@ -1,6 +1,6 @@
 import TelegramBot from 'node-telegram-bot-api';
 const token = '7455061414:AAE2u6kGpeAsfahpaknIcjulKQ5pZnSGto0';
-const webAppURL = 'https://www.youtube.com/watch?v=MzO-0IYkZMU'
+const webAppURL = 'https://tg-bot-react-vite-lime.vercel.app/'
 
 console.log('hello bot 123');
 const bot = new TelegramBot(token, {

@@ -20,12 +20,8 @@ function App() {
 
   return (
     <>
-
-
       <h1>Vite + React</h1>
-
       <button onClick={onClose}>Кнопка Закрыть</button>
-
     </>
   )
 }
