@@ -1,4 +1,4 @@
-const TelegramBot = require('node-telegram-bot-api');
+import TelegramBot from 'node-telegram-bot-api';
 const token = '7455061414:AAE2u6kGpeAsfahpaknIcjulKQ5pZnSGto0';
 const webAppURL = 'https://www.youtube.com/watch?v=MzO-0IYkZMU'
 
