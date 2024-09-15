@@ -1,8 +1,19 @@
 import TelegramBot from 'node-telegram-bot-api';
+import express from 'express';
+import cors from 'cors';
+
 const token = '7455061414:AAE2u6kGpeAsfahpaknIcjulKQ5pZnSGto0';
 const webAppURL = 'https://tg-bot-react-vite-lime.vercel.app/'
 
-console.log('hello bot 123');
+//////////////////// express / create server//////////////
+const app = express()
+app.use(cors())
+app.use(express.json())
+
+const PORT = 8080
+////////////////////
+
+//////////////////// web app ///////////////////////////
 const bot = new TelegramBot(token, {
     polling: {
         interval: 300,
@@ -58,3 +69,39 @@ bot.on('message', async (msg) => {
     }
 
 });
+
+/// handler POST ///////////////
+app.post('/web-data', async (req, res) => {
+    const { queryId, productds, getTotalPrice } = req.body
+
+    try {
+        await bot.answerWebAppQuery(queryId, {
+            type: 'article',
+            id: queryId,
+            title: 'Спасибо за заказ',
+            input_message_content: {
+                message_text: `Ваш заказ ${productds} на сумму ${getTotalPrice} успешно оплачен`
+            }
+        })
+        return res.status(200).json({ message: 'ok' })
+    } catch (error) {
+        await bot.answerWebAppQuery(queryId,{
+            type: 'article',
+            id: queryId,
+            title: 'Ошибка',
+            input_message_content:{
+                message_text: 'Произошла ошибка при оплате'
+            }
+        })
+        return res.status(500).json({ message: 'error' })
+    }
+
+
+
+})
+/// lissen //////////
+app.listen(PORT, () => {
+    console.log('server is running on port ' + PORT);
+})
+
+

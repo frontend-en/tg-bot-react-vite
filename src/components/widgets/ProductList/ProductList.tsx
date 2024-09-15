@@ -1,11 +1,9 @@
+import { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
-// import Button from "../../ui/Button/Button";
-// import { useTelegram } from "../../hooks/useTelegram";
+import ProductItem from "../ProductItem/ProductItem";
+import { useTelegram } from "../../hooks/useTelegram";
 
 import './ProductList.css'
-import ProductItem from "../ProductItem/ProductItem";
-import { useState } from "react";
-import { useTelegram } from "../../hooks/useTelegram";
 
 const getTotalPrice = (addItems: addItemsType[]) => {
     return addItems.reduce((acc, item) => acc + item.price, 0)
@@ -75,7 +73,29 @@ type addItemsType = {
 const ProductList = () => {
 
     const [addItems, setAddItems] = useState<addItemsType[]>([])
-    const { tg } = useTelegram()
+    const { tg, queryId } = useTelegram()
+
+    const onSendData = useCallback(() => {
+        const data = {
+            queryId,
+            productds: addItems,
+            getTotalPrice: getTotalPrice(addItems)
+        }
+        fetch('http://localhost:8080', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+    }, [])
+
+    useEffect(() => {
+        tg.onEvent('mainButtonClicked', onSendData)
+        return () => {
+            tg.offEvent('mainButtonClicked', onSendData)
+        }
+    }, [onSendData])
 
     const onAdd = (product: ProductType) => {
         const alreadyAdded = addItems.find(item => item.id === product.id)
