@@ -1,17 +1,15 @@
 
 
 import { useEffect } from 'react'
+import { Route, Routes } from 'react-router-dom';
 import { useTelegram } from '../hooks/useTelegram'
+import {Header, ProductList, Form} from '../widgets';
+
 import './App.css'
-import Button from '../ui/Button/Button'
-import Header from '../widgets/Header/Header'
-
-
-
 
 function App() {
 
-  const { tg, onToggleButton } = useTelegram()
+  const { tg } = useTelegram()
 
   useEffect(() => {
     tg.ready()
@@ -21,7 +19,11 @@ function App() {
     <>
       <Header />
       <h1>Vite + React</h1>
-      <Button onClick={onToggleButton}>Toggle</Button>
+
+      <Routes>
+        <Route index element={<ProductList />} />
+        <Route path='form' element={<Form />} />
+      </Routes>
     </>
   )
 }

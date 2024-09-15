@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import Button from "../../ui/Button/Button";
+import { Button } from "../../ui";
 import { useTelegram } from "../../hooks/useTelegram";
 
 import './header.css'
