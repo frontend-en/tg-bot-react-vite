@@ -8,9 +8,9 @@ const ProductList = () => {
     // const { onClose, user } = useTelegram()
 
     return (
-        <form action="#" className={classNames('productList')}>
+        <div className={classNames('productList')}>
             ProductList
-        </form>
+        </div>
     )
 }
 

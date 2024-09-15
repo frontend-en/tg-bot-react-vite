@@ -20,8 +20,8 @@ bot.on('message', async (msg) => {
             reply_markup: {
                 inline_keyboard: [
                     [{
-                    text: 'Заказать', web_app: {url: webAppURL}
-                }],
+                        text: 'Заказать', web_app: { url: webAppURL }
+                    }],
                 ],
             }
         })
@@ -36,6 +36,25 @@ bot.on('message', async (msg) => {
                 ],
             }
         })
+    }
+
+    if (msg.web_app_data?.data) {
+        try {
+            const data = JSON.parse(msg.web_app_data?.data)
+
+
+            await bot.sendMessage(chatId, `Ваша страна ${data.country}`)
+            await bot.sendMessage(chatId, `Ваш город ${data.city}`)
+
+            setTimeout(async () => {
+                await bot.sendMessage(chatId, 'Спасибо за обратную связь')
+            }, 3000)
+
+
+
+        } catch (error) {
+
+        }
     }
 
 });
