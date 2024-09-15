@@ -10,6 +10,7 @@ const bot = new TelegramBot(token, {
     }
 })
 
+
 bot.on('message', async (msg) => {
     const chatId = msg.chat.id;
     const text = msg.text
@@ -18,9 +19,7 @@ bot.on('message', async (msg) => {
         await bot.sendMessage(chatId, 'Заполни форму. Кнопка внизу', {
             reply_markup: {
                 inline_keyboard: [
-                    [{ text: 'Стикер', callback_data: 'sticker' },
-                    { text: 'Круглое Видео', callback_data: 'circleVideo' },
-                {
+                    [{
                     text: 'Заказать', web_app: {url: webAppURL}
                 }],
                 ],
@@ -30,7 +29,9 @@ bot.on('message', async (msg) => {
             reply_markup: {
                 keyboard: [
                     [{
-                        text: 'Нажми, чтобы заполнить форму'
+                        text: 'Нажми, чтобы заполнить форму', web_app: {
+                            url: webAppURL + '/form'
+                        }
                     }]
                 ],
             }
