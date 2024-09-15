@@ -53,6 +53,13 @@ const productds: ProductType[] = [
         description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, aliquam.',
         price: 100,
         img: 'https://picsum.photos/200/300',
+    },
+    {
+        id: 6,
+        title: 'Куллер',
+        description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium, aliquam.',
+        price: 100,
+        img: 'https://picsum.photos/200/300',
     }
 ]
 
