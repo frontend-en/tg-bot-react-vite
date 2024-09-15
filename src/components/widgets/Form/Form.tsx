@@ -19,7 +19,7 @@ const Form = () => {
             subject: formData.subject === 'physical' ? 'Физ. лицо' : 'Юр. лицо'
         }
         tg.sendData(JSON.stringify(data))
-    }, [])
+    }, [formData.city, formData.country, formData.subject])
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
