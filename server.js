@@ -72,7 +72,7 @@ bot.on('message', async (msg) => {
 
 /// handler POST ///////////////
 app.post('/web-data', async (req, res) => {
-    const { queryId, productds, getTotalPrice } = req.body
+    const { queryId, productds, totalPrice } = req.body
 
     try {
         await bot.answerWebAppQuery(queryId, {
@@ -80,16 +80,17 @@ app.post('/web-data', async (req, res) => {
             id: queryId,
             title: 'Спасибо за заказ',
             input_message_content: {
-                message_text: `Ваш заказ ${productds} на сумму ${getTotalPrice} успешно оплачен`
+                message_text: `Ваш заказ  ${productds.map(item => item.title.join(', '))}  на сумму ${totalPrice} успешно оплачен
+               `
             }
         })
         return res.status(200).json({ message: 'ok' })
     } catch (error) {
-        await bot.answerWebAppQuery(queryId,{
+        await bot.answerWebAppQuery(queryId, {
             type: 'article',
             id: queryId,
             title: 'Ошибка',
-            input_message_content:{
+            input_message_content: {
                 message_text: 'Произошла ошибка при оплате'
             }
         })
